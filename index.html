@@ -29,8 +29,8 @@
             <p class="frase">"Más de una década ofreciendo el mejor sabor en el corazón de Hopelchén"</p>
             <div class="hero-buttons">
                 <a href="#menu" class="btn-hero btn-primary">Explorar el menú</a>
-                <a href="https://wa.me/529967300720" target="_blank" class="btn-hero btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> Reservar
+                <a href="https://wa.me/529961029419" target="_blank" class="btn-hero btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Pedir
                 </a>
             </div>
         </div>
@@ -113,63 +113,19 @@
         </section>
 
         <!-- ====== MENÚ ====== -->
-        <section id="menu" class="section-menu">
+        <section id="menu" class="section-menu menu-teaser-section">
             <div class="container">
-                <span class="section-tag center-tag">Carta</span>
-                <h2>Nuestros Platillos</h2>
-                <div class="divider-center">
-                    <span class="line"></span>
-                    <span class="diamond">◆</span>
-                    <span class="line"></span>
+                <div class="menu-teaser fade-in">
+                    <div class="menu-teaser-copy">
+                        <span class="section-tag">Menu</span>
+                        <h2>Elige antes de llegar</h2>
+                        <div class="divider-left"></div>
+                        <p>Consulta desayunos, comidas y bebidas en una página aparte, pensada para ver la carta completa sin cargar de más esta página principal.</p>
+                    </div>
+                    <a href="menu.html" class="btn-menu btn-menu-primary menu-teaser-btn">
+                        <i class="fas fa-utensils"></i> Ver menú
+                    </a>
                 </div>
-                <p class="menu-intro">100% mexicanos, elaborados con el sello inconfundible de La Capilla.</p>
-
-                <div class="menu-grid">
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <span class="badge-especial">⭐ Especialidad</span>
-                            <h3>Barbacoa de Borrego</h3>
-                            <span class="menu-precio">$240</span>
-                        </div>
-                        <p>Borrego cocido a fuego lento en horno de tierra, acompañado de consomé, salsa borracha y cebolla asada.</p>
-                    </div>
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <h3>Birria de Res</h3>
-                            <span class="menu-precio">$210</span>
-                        </div>
-                        <p>Estilo tradicional La Capilla, con su jugoso caldo, carne deshebrada y acompañada de frijoles charros.</p>
-                    </div>
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <h3>Comida Corrida</h3>
-                            <span class="menu-precio">$150</span>
-                        </div>
-                        <p>Menú del día: sopa del día, guisado a elegir, arroz, frijoles y agua de sabor.</p>
-                    </div>
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <h3>Desayunos</h3>
-                            <span class="menu-precio">$90</span>
-                        </div>
-                        <p>Huevos al gusto, chilaquiles, enchiladas o molletes. Acompañados de café de olla.</p>
-                    </div>
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <h3>Alcolagua & Miel</h3>
-                            <span class="menu-precio">$60</span>
-                        </div>
-                        <p>Bebida tradicional de la casa: agua de jamaica con un toque de miel de abeja local.</p>
-                    </div>
-                    <div class="menu-card fade-in">
-                        <div class="menu-card-header">
-                            <h3>Platillo de la Casa</h3>
-                            <span class="menu-precio">$190</span>
-                        </div>
-                        <p>Pregunta por nuestra sugerencia del día, siempre con ingredientes de temporada.</p>
-                    </div>
-                </div>
-                <p class="menu-nota">* Precios sujetos a cambio. Consulte nuestro menú completo en el local.</p>
             </div>
         </section>
 
@@ -266,13 +222,14 @@
                 <div class="contacto-grid">
                     <div class="contacto-card">
                         <div class="icon-circle"><i class="fas fa-phone-alt"></i></div>
-                        <h4>Teléfono</h4>
-                        <a>+52 996 730 0720</a>
+                        <h4>Pedidos</h4>
+                        <a href="tel:+529961029419">+52 996 102 9419</a>
+                        <p>Facturas: 981 104 22 17</p>
                     </div>
                     <div class="contacto-card highlight">
                         <div class="icon-circle whatsapp-bg"><i class="fab fa-whatsapp"></i></div>
                         <h4>WhatsApp</h4>
-                        <a href="https://wa.me/529967300720" target="_blank" class="whatsapp-btn">
+                        <a href="https://wa.me/529961029419" target="_blank" class="whatsapp-btn">
                             <i class="fab fa-whatsapp"></i> Pedir ahora
                         </a>
                         <p>Respuesta rápida en minutos</p>
@@ -317,7 +274,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Smooth scroll
-            document.querySelectorAll('nav a, .btn-hero, .btn-outline').forEach(anchor => {
+            document.querySelectorAll('nav a, .btn-hero, .btn-outline, .menu-chip').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
@@ -329,6 +286,10 @@
                             const navLinks = document.getElementById('navLinks');
                             if (navLinks && navLinks.classList.contains('open')) {
                                 navLinks.classList.remove('open');
+                            }
+                            const hamburger = document.getElementById('navHamburger');
+                            if (hamburger && hamburger.classList.contains('active')) {
+                                hamburger.classList.remove('active');
                             }
                         }
                     }
@@ -359,6 +320,7 @@
             });
 
             faders.forEach(el => observer.observe(el));
+
         });
     </script>
 </body>
