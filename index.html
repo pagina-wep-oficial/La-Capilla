@@ -294,6 +294,7 @@
             <img id="galleryLightboxImage" src="" alt="">
             <figcaption id="galleryLightboxCaption"></figcaption>
         </figure>
+        <div class="gallery-lightbox-counter" id="galleryLightboxCounter" aria-live="polite"></div>
         <button type="button" class="lightbox-button lightbox-next" id="galleryLightboxNext" aria-label="Imagen siguiente">
             <i class="fas fa-chevron-right"></i>
         </button>
@@ -381,15 +382,27 @@
             const galleryLightboxClose = document.getElementById('galleryLightboxClose');
             const galleryLightboxPrev = document.getElementById('galleryLightboxPrev');
             const galleryLightboxNext = document.getElementById('galleryLightboxNext');
+            const galleryLightboxCounter = document.getElementById('galleryLightboxCounter');
             let currentGalleryImage = 0;
+            let galleryTouchStartX = 0;
+            let galleryTouchStartY = 0;
 
             function showGalleryImage(index) {
                 if (!galleryItems.length || !galleryLightboxImage || !galleryLightboxCaption) return;
-                currentGalleryImage = (index + galleryItems.length) % galleryItems.length;
+                currentGalleryImage = Math.max(0, Math.min(index, galleryItems.length - 1));
                 const image = galleryItems[currentGalleryImage];
                 galleryLightboxImage.src = image.src;
                 galleryLightboxImage.alt = image.alt;
                 galleryLightboxCaption.textContent = '';
+                if (galleryLightboxCounter) {
+                    galleryLightboxCounter.textContent = `${currentGalleryImage + 1} / ${galleryItems.length}`;
+                }
+                if (galleryLightboxPrev && galleryLightboxNext) {
+                    galleryLightboxPrev.disabled = currentGalleryImage === 0;
+                    galleryLightboxNext.disabled = currentGalleryImage === galleryItems.length - 1;
+                    galleryLightboxPrev.setAttribute('aria-disabled', String(galleryLightboxPrev.disabled));
+                    galleryLightboxNext.setAttribute('aria-disabled', String(galleryLightboxNext.disabled));
+                }
             }
 
             function openGalleryLightbox(index) {
@@ -429,6 +442,18 @@
                     if (e.key === 'ArrowLeft') showGalleryImage(currentGalleryImage - 1);
                     if (e.key === 'ArrowRight') showGalleryImage(currentGalleryImage + 1);
                 });
+                galleryLightbox.addEventListener('touchstart', function(e) {
+                    const touch = e.changedTouches[0];
+                    galleryTouchStartX = touch.clientX;
+                    galleryTouchStartY = touch.clientY;
+                }, { passive: true });
+                galleryLightbox.addEventListener('touchend', function(e) {
+                    const touch = e.changedTouches[0];
+                    const deltaX = touch.clientX - galleryTouchStartX;
+                    const deltaY = touch.clientY - galleryTouchStartY;
+                    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+                    showGalleryImage(currentGalleryImage + (deltaX < 0 ? 1 : -1));
+                }, { passive: true });
             }
 
         });
